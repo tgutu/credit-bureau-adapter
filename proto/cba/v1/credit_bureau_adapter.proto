@@ -9,6 +9,19 @@ import "google/api/annotations.proto";
 option go_package = "cba/cba;cba";
 
 service CreditBureauAdapterService {
+
+    // Retrieves a list of supported credit bureaus.
+    // No parameters required.
+    // Returns a list of credit bureaus with their IDs and names.
+    rpc GetBureaus (google.protobuf.Empty) returns (GetBureausResponse) {
+        option (google.api.http) = {
+            get: "/v1/credit/bureaus"
+        };
+        option (gnostic.openapi.v3.operation) = {
+            operation_id: "GetBureaus"
+        };
+    }
+
     // Retrieves a detailed credit report for an individual.
     // Requires personal identification details.
     // Returns a comprehensive credit report including credit history, accounts, and inquiries.
@@ -36,12 +49,22 @@ service CreditBureauAdapterService {
     }
 }
 
+// Response message for GetBureaus RPC.
+message GetBureausResponse {
+    message Bureau {
+        string id = 1; // Unique identifier for the credit bureau
+        string name = 2; // Name of the credit bureau
+    }
+    repeated Bureau bureaus = 1;
+}
+
 // Request message for credit report and score retrieval.
 message GetCreditReportRequest {
     string first_name = 1;
     string last_name = 2;
     string date_of_birth = 3; // Format: YYYY-MM-DD
     string national_id = 4; // National ID Number
+    string bureau_id = 5; // ID of the credit bureau to query
 }
 
 // Response message for credit report retrieval.
@@ -61,6 +84,7 @@ message GetCreditScoreRequest {
     string last_name = 2;
     string date_of_birth = 3; // Format: YYYY-MM-DD
     string national_id = 4; // National ID Number
+    string bureau_id = 5; // ID of the credit bureau to query
 }
 
 message GetCreditScoreResponse {
