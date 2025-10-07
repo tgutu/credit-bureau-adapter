@@ -11,6 +11,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -23,6 +24,51 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Response message for GetBureaus RPC.
+type GetBureausResponse struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	Bureaus       []*GetBureausResponse_Bureau `protobuf:"bytes,1,rep,name=bureaus,proto3" json:"bureaus,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBureausResponse) Reset() {
+	*x = GetBureausResponse{}
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBureausResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBureausResponse) ProtoMessage() {}
+
+func (x *GetBureausResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBureausResponse.ProtoReflect.Descriptor instead.
+func (*GetBureausResponse) Descriptor() ([]byte, []int) {
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetBureausResponse) GetBureaus() []*GetBureausResponse_Bureau {
+	if x != nil {
+		return x.Bureaus
+	}
+	return nil
+}
+
 // Request message for credit report and score retrieval.
 type GetCreditReportRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -30,13 +76,14 @@ type GetCreditReportRequest struct {
 	LastName      string                 `protobuf:"bytes,2,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
 	DateOfBirth   string                 `protobuf:"bytes,3,opt,name=date_of_birth,json=dateOfBirth,proto3" json:"date_of_birth,omitempty"` // Format: YYYY-MM-DD
 	NationalId    string                 `protobuf:"bytes,4,opt,name=national_id,json=nationalId,proto3" json:"national_id,omitempty"`      // National ID Number
+	BureauId      string                 `protobuf:"bytes,5,opt,name=bureau_id,json=bureauId,proto3" json:"bureau_id,omitempty"`            // ID of the credit bureau to query
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetCreditReportRequest) Reset() {
 	*x = GetCreditReportRequest{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[0]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -48,7 +95,7 @@ func (x *GetCreditReportRequest) String() string {
 func (*GetCreditReportRequest) ProtoMessage() {}
 
 func (x *GetCreditReportRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[0]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -61,7 +108,7 @@ func (x *GetCreditReportRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCreditReportRequest.ProtoReflect.Descriptor instead.
 func (*GetCreditReportRequest) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{0}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetCreditReportRequest) GetFirstName() string {
@@ -92,6 +139,13 @@ func (x *GetCreditReportRequest) GetNationalId() string {
 	return ""
 }
 
+func (x *GetCreditReportRequest) GetBureauId() string {
+	if x != nil {
+		return x.BureauId
+	}
+	return ""
+}
+
 // Response message for credit report retrieval.
 type GetCreditReportResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -108,7 +162,7 @@ type GetCreditReportResponse struct {
 
 func (x *GetCreditReportResponse) Reset() {
 	*x = GetCreditReportResponse{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[1]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -120,7 +174,7 @@ func (x *GetCreditReportResponse) String() string {
 func (*GetCreditReportResponse) ProtoMessage() {}
 
 func (x *GetCreditReportResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[1]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -133,7 +187,7 @@ func (x *GetCreditReportResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCreditReportResponse.ProtoReflect.Descriptor instead.
 func (*GetCreditReportResponse) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{1}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetCreditReportResponse) GetReportId() string {
@@ -192,13 +246,14 @@ type GetCreditScoreRequest struct {
 	LastName      string                 `protobuf:"bytes,2,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
 	DateOfBirth   string                 `protobuf:"bytes,3,opt,name=date_of_birth,json=dateOfBirth,proto3" json:"date_of_birth,omitempty"` // Format: YYYY-MM-DD
 	NationalId    string                 `protobuf:"bytes,4,opt,name=national_id,json=nationalId,proto3" json:"national_id,omitempty"`      // National ID Number
+	BureauId      string                 `protobuf:"bytes,5,opt,name=bureau_id,json=bureauId,proto3" json:"bureau_id,omitempty"`            // ID of the credit bureau to query
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetCreditScoreRequest) Reset() {
 	*x = GetCreditScoreRequest{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[2]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -210,7 +265,7 @@ func (x *GetCreditScoreRequest) String() string {
 func (*GetCreditScoreRequest) ProtoMessage() {}
 
 func (x *GetCreditScoreRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[2]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -223,7 +278,7 @@ func (x *GetCreditScoreRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCreditScoreRequest.ProtoReflect.Descriptor instead.
 func (*GetCreditScoreRequest) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{2}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetCreditScoreRequest) GetFirstName() string {
@@ -254,6 +309,13 @@ func (x *GetCreditScoreRequest) GetNationalId() string {
 	return ""
 }
 
+func (x *GetCreditScoreRequest) GetBureauId() string {
+	if x != nil {
+		return x.BureauId
+	}
+	return ""
+}
+
 type GetCreditScoreResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FullName      string                 `protobuf:"bytes,1,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
@@ -266,7 +328,7 @@ type GetCreditScoreResponse struct {
 
 func (x *GetCreditScoreResponse) Reset() {
 	*x = GetCreditScoreResponse{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[3]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -278,7 +340,7 @@ func (x *GetCreditScoreResponse) String() string {
 func (*GetCreditScoreResponse) ProtoMessage() {}
 
 func (x *GetCreditScoreResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[3]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +353,7 @@ func (x *GetCreditScoreResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCreditScoreResponse.ProtoReflect.Descriptor instead.
 func (*GetCreditScoreResponse) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{3}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetCreditScoreResponse) GetFullName() string {
@@ -337,7 +399,7 @@ type Account struct {
 
 func (x *Account) Reset() {
 	*x = Account{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[4]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -349,7 +411,7 @@ func (x *Account) String() string {
 func (*Account) ProtoMessage() {}
 
 func (x *Account) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[4]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -362,7 +424,7 @@ func (x *Account) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Account.ProtoReflect.Descriptor instead.
 func (*Account) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{4}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Account) GetAccountType() string {
@@ -425,7 +487,7 @@ type Inquiry struct {
 
 func (x *Inquiry) Reset() {
 	*x = Inquiry{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[5]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -437,7 +499,7 @@ func (x *Inquiry) String() string {
 func (*Inquiry) ProtoMessage() {}
 
 func (x *Inquiry) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[5]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -450,7 +512,7 @@ func (x *Inquiry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Inquiry.ProtoReflect.Descriptor instead.
 func (*Inquiry) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{5}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Inquiry) GetInquiryType() string {
@@ -486,7 +548,7 @@ type PublicRecord struct {
 
 func (x *PublicRecord) Reset() {
 	*x = PublicRecord{}
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[6]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -498,7 +560,7 @@ func (x *PublicRecord) String() string {
 func (*PublicRecord) ProtoMessage() {}
 
 func (x *PublicRecord) ProtoReflect() protoreflect.Message {
-	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[6]
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -511,7 +573,7 @@ func (x *PublicRecord) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicRecord.ProtoReflect.Descriptor instead.
 func (*PublicRecord) Descriptor() ([]byte, []int) {
-	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{6}
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *PublicRecord) GetRecordType() string {
@@ -542,18 +604,76 @@ func (x *PublicRecord) GetStatus() string {
 	return ""
 }
 
+type GetBureausResponse_Bureau struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`     // Unique identifier for the credit bureau
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"` // Name of the credit bureau
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBureausResponse_Bureau) Reset() {
+	*x = GetBureausResponse_Bureau{}
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBureausResponse_Bureau) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBureausResponse_Bureau) ProtoMessage() {}
+
+func (x *GetBureausResponse_Bureau) ProtoReflect() protoreflect.Message {
+	mi := &file_cba_v1_credit_bureau_adapter_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBureausResponse_Bureau.ProtoReflect.Descriptor instead.
+func (*GetBureausResponse_Bureau) Descriptor() ([]byte, []int) {
+	return file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP(), []int{0, 0}
+}
+
+func (x *GetBureausResponse_Bureau) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *GetBureausResponse_Bureau) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
 var File_cba_v1_credit_bureau_adapter_proto protoreflect.FileDescriptor
 
 const file_cba_v1_credit_bureau_adapter_proto_rawDesc = "" +
 	"\n" +
-	"\"cba/v1/credit_bureau_adapter.proto\x12\x06cba.v1\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1cgoogle/api/annotations.proto\"\x99\x01\n" +
+	"\"cba/v1/credit_bureau_adapter.proto\x12\x06cba.v1\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x7f\n" +
+	"\x12GetBureausResponse\x12;\n" +
+	"\abureaus\x18\x01 \x03(\v2!.cba.v1.GetBureausResponse.BureauR\abureaus\x1a,\n" +
+	"\x06Bureau\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"\xb6\x01\n" +
 	"\x16GetCreditReportRequest\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x01 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x02 \x01(\tR\blastName\x12\"\n" +
 	"\rdate_of_birth\x18\x03 \x01(\tR\vdateOfBirth\x12\x1f\n" +
 	"\vnational_id\x18\x04 \x01(\tR\n" +
-	"nationalId\"\xb1\x02\n" +
+	"nationalId\x12\x1b\n" +
+	"\tbureau_id\x18\x05 \x01(\tR\bbureauId\"\xb1\x02\n" +
 	"\x17GetCreditReportResponse\x12\x1b\n" +
 	"\treport_id\x18\x01 \x01(\tR\breportId\x12\x1b\n" +
 	"\tfull_name\x18\x02 \x01(\tR\bfullName\x12\"\n" +
@@ -562,14 +682,15 @@ const file_cba_v1_credit_bureau_adapter_proto_rawDesc = "" +
 	"\tinquiries\x18\x05 \x03(\v2\x0f.cba.v1.InquiryR\tinquiries\x12;\n" +
 	"\x0epublic_records\x18\x06 \x03(\v2\x14.cba.v1.PublicRecordR\rpublicRecords\x12\x1f\n" +
 	"\vreport_date\x18\a \x01(\tR\n" +
-	"reportDate\"\x98\x01\n" +
+	"reportDate\"\xb5\x01\n" +
 	"\x15GetCreditScoreRequest\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x01 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x02 \x01(\tR\blastName\x12\"\n" +
 	"\rdate_of_birth\x18\x03 \x01(\tR\vdateOfBirth\x12\x1f\n" +
 	"\vnational_id\x18\x04 \x01(\tR\n" +
-	"nationalId\"\x9b\x01\n" +
+	"nationalId\x12\x1b\n" +
+	"\tbureau_id\x18\x05 \x01(\tR\bbureauId\"\x9b\x01\n" +
 	"\x16GetCreditScoreResponse\x12\x1b\n" +
 	"\tfull_name\x18\x01 \x01(\tR\bfullName\x12\"\n" +
 	"\rdate_of_birth\x18\x02 \x01(\tR\vdateOfBirth\x12!\n" +
@@ -596,8 +717,11 @@ const file_cba_v1_credit_bureau_adapter_proto_rawDesc = "" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1d\n" +
 	"\n" +
 	"date_filed\x18\x03 \x01(\tR\tdateFiled\x12\x16\n" +
-	"\x06status\x18\x04 \x01(\tR\x06status2\xa4\x02\n" +
-	"\x1aCreditBureauAdapterService\x12\x84\x01\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status2\x91\x03\n" +
+	"\x1aCreditBureauAdapterService\x12k\n" +
+	"\n" +
+	"GetBureaus\x12\x16.google.protobuf.Empty\x1a\x1a.cba.v1.GetBureausResponse\")\xbaG\f*\n" +
+	"GetBureaus\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/credit/bureaus\x12\x84\x01\n" +
 	"\x0fGetCreditReport\x12\x1e.cba.v1.GetCreditReportRequest\x1a\x1f.cba.v1.GetCreditReportResponse\"0\xbaG\x11*\x0fGetCreditReport\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/credit/report\x12\x7f\n" +
 	"\x0eGetCreditScore\x12\x1d.cba.v1.GetCreditScoreRequest\x1a\x1e.cba.v1.GetCreditScoreResponse\".\xbaG\x10*\x0eGetCreditScore\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/credit/scoreBl\n" +
 	"\n" +
@@ -615,29 +739,35 @@ func file_cba_v1_credit_bureau_adapter_proto_rawDescGZIP() []byte {
 	return file_cba_v1_credit_bureau_adapter_proto_rawDescData
 }
 
-var file_cba_v1_credit_bureau_adapter_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_cba_v1_credit_bureau_adapter_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_cba_v1_credit_bureau_adapter_proto_goTypes = []any{
-	(*GetCreditReportRequest)(nil),  // 0: cba.v1.GetCreditReportRequest
-	(*GetCreditReportResponse)(nil), // 1: cba.v1.GetCreditReportResponse
-	(*GetCreditScoreRequest)(nil),   // 2: cba.v1.GetCreditScoreRequest
-	(*GetCreditScoreResponse)(nil),  // 3: cba.v1.GetCreditScoreResponse
-	(*Account)(nil),                 // 4: cba.v1.Account
-	(*Inquiry)(nil),                 // 5: cba.v1.Inquiry
-	(*PublicRecord)(nil),            // 6: cba.v1.PublicRecord
+	(*GetBureausResponse)(nil),        // 0: cba.v1.GetBureausResponse
+	(*GetCreditReportRequest)(nil),    // 1: cba.v1.GetCreditReportRequest
+	(*GetCreditReportResponse)(nil),   // 2: cba.v1.GetCreditReportResponse
+	(*GetCreditScoreRequest)(nil),     // 3: cba.v1.GetCreditScoreRequest
+	(*GetCreditScoreResponse)(nil),    // 4: cba.v1.GetCreditScoreResponse
+	(*Account)(nil),                   // 5: cba.v1.Account
+	(*Inquiry)(nil),                   // 6: cba.v1.Inquiry
+	(*PublicRecord)(nil),              // 7: cba.v1.PublicRecord
+	(*GetBureausResponse_Bureau)(nil), // 8: cba.v1.GetBureausResponse.Bureau
+	(*emptypb.Empty)(nil),             // 9: google.protobuf.Empty
 }
 var file_cba_v1_credit_bureau_adapter_proto_depIdxs = []int32{
-	4, // 0: cba.v1.GetCreditReportResponse.accounts:type_name -> cba.v1.Account
-	5, // 1: cba.v1.GetCreditReportResponse.inquiries:type_name -> cba.v1.Inquiry
-	6, // 2: cba.v1.GetCreditReportResponse.public_records:type_name -> cba.v1.PublicRecord
-	0, // 3: cba.v1.CreditBureauAdapterService.GetCreditReport:input_type -> cba.v1.GetCreditReportRequest
-	2, // 4: cba.v1.CreditBureauAdapterService.GetCreditScore:input_type -> cba.v1.GetCreditScoreRequest
-	1, // 5: cba.v1.CreditBureauAdapterService.GetCreditReport:output_type -> cba.v1.GetCreditReportResponse
-	3, // 6: cba.v1.CreditBureauAdapterService.GetCreditScore:output_type -> cba.v1.GetCreditScoreResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	8, // 0: cba.v1.GetBureausResponse.bureaus:type_name -> cba.v1.GetBureausResponse.Bureau
+	5, // 1: cba.v1.GetCreditReportResponse.accounts:type_name -> cba.v1.Account
+	6, // 2: cba.v1.GetCreditReportResponse.inquiries:type_name -> cba.v1.Inquiry
+	7, // 3: cba.v1.GetCreditReportResponse.public_records:type_name -> cba.v1.PublicRecord
+	9, // 4: cba.v1.CreditBureauAdapterService.GetBureaus:input_type -> google.protobuf.Empty
+	1, // 5: cba.v1.CreditBureauAdapterService.GetCreditReport:input_type -> cba.v1.GetCreditReportRequest
+	3, // 6: cba.v1.CreditBureauAdapterService.GetCreditScore:input_type -> cba.v1.GetCreditScoreRequest
+	0, // 7: cba.v1.CreditBureauAdapterService.GetBureaus:output_type -> cba.v1.GetBureausResponse
+	2, // 8: cba.v1.CreditBureauAdapterService.GetCreditReport:output_type -> cba.v1.GetCreditReportResponse
+	4, // 9: cba.v1.CreditBureauAdapterService.GetCreditScore:output_type -> cba.v1.GetCreditScoreResponse
+	7, // [7:10] is the sub-list for method output_type
+	4, // [4:7] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_cba_v1_credit_bureau_adapter_proto_init() }
@@ -651,7 +781,7 @@ func file_cba_v1_credit_bureau_adapter_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_cba_v1_credit_bureau_adapter_proto_rawDesc), len(file_cba_v1_credit_bureau_adapter_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

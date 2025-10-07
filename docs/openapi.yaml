@@ -6,6 +6,28 @@ info:
     title: CreditBureauAdapterService API
     version: 0.0.1
 paths:
+    /v1/credit/bureaus:
+        get:
+            tags:
+                - CreditBureauAdapterService
+            description: |-
+                Retrieves a list of supported credit bureaus.
+                 No parameters required.
+                 Returns a list of credit bureaus with their IDs and names.
+            operationId: GetBureaus
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetBureausResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /v1/credit/report:
         post:
             tags:
@@ -81,6 +103,21 @@ components:
                     type: string
                 closedDate:
                     type: string
+        GetBureausResponse:
+            type: object
+            properties:
+                bureaus:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GetBureausResponse_Bureau'
+            description: Response message for GetBureaus RPC.
+        GetBureausResponse_Bureau:
+            type: object
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
         GetCreditReportRequest:
             type: object
             properties:
@@ -91,6 +128,8 @@ components:
                 dateOfBirth:
                     type: string
                 nationalId:
+                    type: string
+                bureauId:
                     type: string
             description: Request message for credit report and score retrieval.
         GetCreditReportResponse:
@@ -127,6 +166,8 @@ components:
                 dateOfBirth:
                     type: string
                 nationalId:
+                    type: string
+                bureauId:
                     type: string
             description: Response message for credit score retrieval.
         GetCreditScoreResponse:

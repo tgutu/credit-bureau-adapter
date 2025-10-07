@@ -22,6 +22,7 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // Suppress "imported and not used" errors
@@ -34,6 +35,27 @@ var (
 	_ = utilities.NewDoubleArray
 	_ = metadata.Join
 )
+
+func request_CreditBureauAdapterService_GetBureaus_0(ctx context.Context, marshaler runtime.Marshaler, client CreditBureauAdapterServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq emptypb.Empty
+		metadata runtime.ServerMetadata
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.GetBureaus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_CreditBureauAdapterService_GetBureaus_0(ctx context.Context, marshaler runtime.Marshaler, server CreditBureauAdapterServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq emptypb.Empty
+		metadata runtime.ServerMetadata
+	)
+	msg, err := server.GetBureaus(ctx, &protoReq)
+	return msg, metadata, err
+}
 
 func request_CreditBureauAdapterService_GetCreditReport_0(ctx context.Context, marshaler runtime.Marshaler, client CreditBureauAdapterServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
@@ -95,6 +117,26 @@ func local_request_CreditBureauAdapterService_GetCreditScore_0(ctx context.Conte
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterCreditBureauAdapterServiceHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterCreditBureauAdapterServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server CreditBureauAdapterServiceServer) error {
+	mux.Handle(http.MethodGet, pattern_CreditBureauAdapterService_GetBureaus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/cba.v1.CreditBureauAdapterService/GetBureaus", runtime.WithHTTPPathPattern("/v1/credit/bureaus"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_CreditBureauAdapterService_GetBureaus_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_CreditBureauAdapterService_GetBureaus_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_CreditBureauAdapterService_GetCreditReport_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -175,6 +217,23 @@ func RegisterCreditBureauAdapterServiceHandler(ctx context.Context, mux *runtime
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "CreditBureauAdapterServiceClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterCreditBureauAdapterServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client CreditBureauAdapterServiceClient) error {
+	mux.Handle(http.MethodGet, pattern_CreditBureauAdapterService_GetBureaus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/cba.v1.CreditBureauAdapterService/GetBureaus", runtime.WithHTTPPathPattern("/v1/credit/bureaus"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_CreditBureauAdapterService_GetBureaus_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_CreditBureauAdapterService_GetBureaus_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_CreditBureauAdapterService_GetCreditReport_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -213,11 +272,13 @@ func RegisterCreditBureauAdapterServiceHandlerClient(ctx context.Context, mux *r
 }
 
 var (
+	pattern_CreditBureauAdapterService_GetBureaus_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "credit", "bureaus"}, ""))
 	pattern_CreditBureauAdapterService_GetCreditReport_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "credit", "report"}, ""))
 	pattern_CreditBureauAdapterService_GetCreditScore_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "credit", "score"}, ""))
 )
 
 var (
+	forward_CreditBureauAdapterService_GetBureaus_0      = runtime.ForwardResponseMessage
 	forward_CreditBureauAdapterService_GetCreditReport_0 = runtime.ForwardResponseMessage
 	forward_CreditBureauAdapterService_GetCreditScore_0  = runtime.ForwardResponseMessage
 )
