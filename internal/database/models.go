@@ -12,3 +12,8 @@ type BaseModel struct {
 	UpdatedAt time.Time      `gorm:"autoUpdateTime"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
+
+type CreditBureau struct {
+	BaseModel
+	Name string
+}

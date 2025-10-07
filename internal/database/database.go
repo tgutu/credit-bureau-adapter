@@ -50,6 +50,10 @@ func NewDatabase(lc fx.Lifecycle, params DatabaseParams) (*gorm.DB, error) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			params.Logger.Info("Connected to the database")
+
+			if err := db.AutoMigrate(&CreditBureau{}); err != nil {
+				return fmt.Errorf("failed to migrate database: %w", err)
+			}
 			return nil
 		},
 		OnStop: func(ctx context.Context) error {

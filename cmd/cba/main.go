@@ -6,6 +6,8 @@ import (
 
 	"github.com/tgutu/credit-bureau-adapter/internal/cba"
 	"github.com/tgutu/credit-bureau-adapter/internal/config"
+	"github.com/tgutu/credit-bureau-adapter/internal/database"
+	"github.com/tgutu/credit-bureau-adapter/internal/repository"
 	"github.com/tgutu/credit-bureau-adapter/internal/server"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
@@ -31,9 +33,11 @@ func main() {
 			return configFile
 		}),
 		fx.Provide(
+			cba.NewServer,
+			database.NewDatabase,
+			repository.NewCreditBureauRepository,
 			server.NewGrpcServer,
 			server.NewHTTPServer,
-			cba.NewServer,
 			zap.NewProduction,
 		),
 		fx.WithLogger(func(log *zap.Logger) fxevent.Logger {
