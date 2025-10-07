@@ -32,8 +32,14 @@
 - **Branching:** Use feature branches (`feature/xyz`), bugfix branches (`bugfix/xyz`), or hotfix branches (`hotfix/xyz`).
 - **Commits:** Write clear, concise commit messages.
 - **Pull Requests:** Submit PRs for all changes. Ensure all checks pass before merging.
-- **Protobuf Updates:** Run `buf generate`
 
+---
+
+## Protobuf
+- The service is defined using Google Protobuf
+- The gRPC service definition is located in the `proto/` folder
+- Ensure protobuf updates are sane: `buf lint`
+- Generate new source after updates: `buf generate`
 ---
 
 ## Testing
