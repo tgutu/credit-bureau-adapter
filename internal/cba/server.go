@@ -8,7 +8,7 @@ import (
 
 type ServiceParams struct {
 	fx.In
-	logger *zap.Logger
+	Logger *zap.Logger
 }
 
 type server struct {
@@ -18,6 +18,6 @@ type server struct {
 
 func NewServer(lc fx.Lifecycle, params ServiceParams) cba.CreditBureauAdapterServiceServer {
 	return &server{
-		logger: params.logger,
+		logger: params.Logger,
 	}
 }
