@@ -49,8 +49,13 @@
   ```sh
   go test ./...
   ```
+
+- **Postman:**
+  Import the OpenAPI spec inside the `docs/` folder into Postman.
+  Configure `baseUrl` variable to `http://localhost:8080` in collection variables.
+
 - **Integration Tests:**  
-  Use mock/staging endpoints for external API calls.
+  Use local endpoint for integration tests.
 
 ---
 
