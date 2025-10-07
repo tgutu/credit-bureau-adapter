@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package cba.v1;
+
+import "gnostic/openapi/v3/annotations.proto";
+
+import "google/api/annotations.proto";
+
+option go_package = "cba/cba;cba";
+
+service CreditBureauAdapterService {
+    // Retrieves a detailed credit report for an individual.
+    // Requires personal identification details.
+    // Returns a comprehensive credit report including credit history, accounts, and inquiries.
+    rpc GetCreditReport (GetCreditReportRequest) returns (GetCreditReportResponse) {
+        option (google.api.http) = {
+            post: "/v1/credit/report"
+            body: "*"
+        };
+        option (gnostic.openapi.v3.operation) = {
+            operation_id: "GetCreditReport"
+        };
+    }
+
+    // Retrieves the credit score for an individual.
+    // Requires personal identification details.
+    // Returns the credit score as an integer value.
+    rpc GetCreditScore (GetCreditScoreRequest) returns (GetCreditScoreResponse) {
+        option (google.api.http) = {
+            post: "/v1/credit/score"
+            body: "*"
+        };
+        option (gnostic.openapi.v3.operation) = {
+            operation_id: "GetCreditScore"
+        };
+    }
+}
+
+// Request message for credit report and score retrieval.
+message GetCreditReportRequest {
+    string first_name = 1;
+    string last_name = 2;
+    string date_of_birth = 3; // Format: YYYY-MM-DD
+    string national_id = 4; // National ID Number
+}
+
+// Response message for credit report retrieval.
+message GetCreditReportResponse {
+    string report_id = 1;
+    string full_name = 2;
+    string date_of_birth = 3; // Format: YYYY-MM-DD
+    repeated Account accounts = 4;
+    repeated Inquiry inquiries = 5;
+    repeated PublicRecord public_records = 6;
+    string report_date = 7; // Format: YYYY-MM-DD
+}
+
+// Response message for credit score retrieval.
+message GetCreditScoreRequest {
+    string first_name = 1;
+    string last_name = 2;
+    string date_of_birth = 3; // Format: YYYY-MM-DD
+    string national_id = 4; // National ID Number
+}
+
+message GetCreditScoreResponse {
+    string full_name = 1;
+    string date_of_birth = 2; // Format: YYYY-MM-DD
+    int32 credit_score = 3;
+    string score_date = 4; // Format: YYYY-MM-DD
+}
+
+message Account {
+    string account_type = 1; // e.g., "Credit Card", "Mortgage"
+    string account_number = 2;
+    string status = 3; // e.g., "Open", "Closed", "Delinquent"
+    string balance = 4; // e.g., "$5000"
+    string credit_limit = 5; // e.g., "$10000"
+    string opened_date = 6; // Format: YYYY-MM-DD
+    string closed_date = 7; // Format: YYYY-MM-DD, if applicable
+}
+
+message Inquiry {
+    string inquiry_type = 1; // e.g., "Hard", "Soft"
+    string date = 2; // Format: YYYY-MM-DD
+    string institution = 3; // Name of the institution making the inquiry
+}
+
+message PublicRecord {
+    string record_type = 1; // e.g., "Bankruptcy", "Lien"
+    string description = 2;
+    string date_filed = 3; // Format: YYYY-MM-DD
+    string status = 4; // e.g., "Open", "Closed"
+}
+
+
