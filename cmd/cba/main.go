@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/tgutu/credit-bureau-adapter/internal/cba"
+	"github.com/tgutu/credit-bureau-adapter/internal/cba/adapter"
 	"github.com/tgutu/credit-bureau-adapter/internal/config"
 	"github.com/tgutu/credit-bureau-adapter/internal/database"
 	"github.com/tgutu/credit-bureau-adapter/internal/repository"
@@ -34,6 +35,7 @@ func main() {
 		}),
 		fx.Provide(
 			cba.NewServer,
+			adapter.NewEquifaxAdapter,
 			database.NewDatabase,
 			repository.NewCreditBureauRepository,
 			server.NewGrpcServer,

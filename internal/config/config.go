@@ -8,8 +8,14 @@ import (
 )
 
 type Config struct {
-	HTTP ServerConfig `yaml:"http"`
-	GRPC ServerConfig `yaml:"grpc"`
+	HTTP    ServerConfig  `yaml:"http"`
+	GRPC    ServerConfig  `yaml:"grpc"`
+	Equifax EquifaxConfig `yaml:"equifax"`
+}
+
+type EquifaxConfig struct {
+	APIKey  string `yaml:"api_key"`
+	BaseURL string `yaml:"base_url"`
 }
 
 type ServerConfig struct {

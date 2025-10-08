@@ -3,6 +3,7 @@ package cba
 import (
 	"context"
 
+	"github.com/tgutu/credit-bureau-adapter/internal/cba/adapter"
 	"github.com/tgutu/credit-bureau-adapter/internal/repository"
 	"github.com/tgutu/credit-bureau-adapter/pkg/pb/cba/v1"
 	"go.uber.org/fx"
@@ -15,18 +16,21 @@ type ServiceParams struct {
 	fx.In
 	Logger           *zap.Logger
 	CreditBureauRepo repository.CreditBureauRepository
+	EquifaxAdapter   *adapter.EquifaxAdapter
 }
 
 type server struct {
 	cba.UnimplementedCreditBureauAdapterServiceServer
 	logger           *zap.Logger
 	creditBureauRepo repository.CreditBureauRepository
+	equifaxAdapter   *adapter.EquifaxAdapter
 }
 
 func NewServer(lc fx.Lifecycle, params ServiceParams) cba.CreditBureauAdapterServiceServer {
 	return &server{
 		logger:           params.Logger,
 		creditBureauRepo: params.CreditBureauRepo,
+		equifaxAdapter:   params.EquifaxAdapter,
 	}
 }
 
