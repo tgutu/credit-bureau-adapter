@@ -103,21 +103,19 @@ components:
                     type: string
                 closedDate:
                     type: string
+        Bureau:
+            type: object
+            properties:
+                name:
+                    type: string
         GetBureausResponse:
             type: object
             properties:
                 bureaus:
                     type: array
                     items:
-                        $ref: '#/components/schemas/GetBureausResponse_Bureau'
+                        $ref: '#/components/schemas/Bureau'
             description: Response message for GetBureaus RPC.
-        GetBureausResponse_Bureau:
-            type: object
-            properties:
-                id:
-                    type: string
-                name:
-                    type: string
         GetCreditReportRequest:
             type: object
             properties:
@@ -129,7 +127,7 @@ components:
                     type: string
                 nationalId:
                     type: string
-                bureauId:
+                bureauName:
                     type: string
             description: Request message for credit report and score retrieval.
         GetCreditReportResponse:
@@ -167,7 +165,7 @@ components:
                     type: string
                 nationalId:
                     type: string
-                bureauId:
+                bureauName:
                     type: string
             description: Response message for credit score retrieval.
         GetCreditScoreResponse:

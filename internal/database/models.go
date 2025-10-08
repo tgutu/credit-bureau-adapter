@@ -15,5 +15,5 @@ type BaseModel struct {
 
 type CreditBureau struct {
 	BaseModel
-	Name string
+	Name string `gorm:"uniqueIndex"`
 }

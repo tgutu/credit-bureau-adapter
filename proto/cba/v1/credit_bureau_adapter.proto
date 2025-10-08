@@ -5,7 +5,6 @@ package cba.v1;
 import "gnostic/openapi/v3/annotations.proto";
 
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 
 option go_package = "cba/cba;cba";
 
@@ -14,7 +13,7 @@ service CreditBureauAdapterService {
     // Retrieves a list of supported credit bureaus.
     // No parameters required.
     // Returns a list of credit bureaus with their IDs and names.
-    rpc GetBureaus (google.protobuf.Empty) returns (GetBureausResponse) {
+    rpc GetBureaus (GetBureausRequest) returns (GetBureausResponse) {
         option (google.api.http) = {
             get: "/v1/credit/bureaus"
         };
@@ -50,12 +49,11 @@ service CreditBureauAdapterService {
     }
 }
 
+message GetBureausRequest {
+}
+
 // Response message for GetBureaus RPC.
 message GetBureausResponse {
-    message Bureau {
-        string id = 1; // Unique identifier for the credit bureau
-        string name = 2; // Name of the credit bureau
-    }
     repeated Bureau bureaus = 1;
 }
 
@@ -65,7 +63,7 @@ message GetCreditReportRequest {
     string last_name = 2;
     string date_of_birth = 3; // Format: YYYY-MM-DD
     string national_id = 4; // National ID Number
-    string bureau_id = 5; // ID of the credit bureau to query
+    string bureau_name = 5; // Name of the credit bureau to query
 }
 
 // Response message for credit report retrieval.
@@ -85,7 +83,7 @@ message GetCreditScoreRequest {
     string last_name = 2;
     string date_of_birth = 3; // Format: YYYY-MM-DD
     string national_id = 4; // National ID Number
-    string bureau_id = 5; // ID of the credit bureau to query
+    string bureau_name = 5; // Name of the credit bureau to query
 }
 
 message GetCreditScoreResponse {
@@ -103,6 +101,10 @@ message Account {
     string credit_limit = 5; // e.g., "$10000"
     string opened_date = 6; // Format: YYYY-MM-DD
     string closed_date = 7; // Format: YYYY-MM-DD, if applicable
+}
+
+message Bureau {
+    string name = 1; // Name of the credit bureau
 }
 
 message Inquiry {

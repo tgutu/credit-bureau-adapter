@@ -22,7 +22,6 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // Suppress "imported and not used" errors
@@ -38,7 +37,7 @@ var (
 
 func request_CreditBureauAdapterService_GetBureaus_0(ctx context.Context, marshaler runtime.Marshaler, client CreditBureauAdapterServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq emptypb.Empty
+		protoReq GetBureausRequest
 		metadata runtime.ServerMetadata
 	)
 	if req.Body != nil {
@@ -50,7 +49,7 @@ func request_CreditBureauAdapterService_GetBureaus_0(ctx context.Context, marsha
 
 func local_request_CreditBureauAdapterService_GetBureaus_0(ctx context.Context, marshaler runtime.Marshaler, server CreditBureauAdapterServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq emptypb.Empty
+		protoReq GetBureausRequest
 		metadata runtime.ServerMetadata
 	)
 	msg, err := server.GetBureaus(ctx, &protoReq)

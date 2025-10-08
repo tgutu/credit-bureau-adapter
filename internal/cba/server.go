@@ -9,7 +9,6 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type ServiceParams struct {
@@ -31,17 +30,16 @@ func NewServer(lc fx.Lifecycle, params ServiceParams) cba.CreditBureauAdapterSer
 	}
 }
 
-func (s *server) GetBureaus(ctx context.Context, in *emptypb.Empty) (*cba.GetBureausResponse, error) {
+func (s *server) GetBureaus(ctx context.Context, in *cba.GetBureausRequest) (*cba.GetBureausResponse, error) {
 	bureaus, err := s.creditBureauRepo.ListBureaus(ctx)
 	if err != nil {
 		s.logger.Error("failed to get bureaus", zap.Error(err))
 		return nil, status.Errorf(codes.Internal, "failed to get bureaus: %v", err)
 	}
 
-	var pbBureaus []*cba.GetBureausResponse_Bureau
+	var pbBureaus []*cba.Bureau
 	for _, b := range bureaus {
-		pbBureaus = append(pbBureaus, &cba.GetBureausResponse_Bureau{
-			Id:   b.ID,
+		pbBureaus = append(pbBureaus, &cba.Bureau{
 			Name: b.Name,
 		})
 	}

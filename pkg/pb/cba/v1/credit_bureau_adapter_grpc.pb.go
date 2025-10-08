@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -32,7 +31,7 @@ type CreditBureauAdapterServiceClient interface {
 	// Retrieves a list of supported credit bureaus.
 	// No parameters required.
 	// Returns a list of credit bureaus with their IDs and names.
-	GetBureaus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetBureausResponse, error)
+	GetBureaus(ctx context.Context, in *GetBureausRequest, opts ...grpc.CallOption) (*GetBureausResponse, error)
 	// Retrieves a detailed credit report for an individual.
 	// Requires personal identification details.
 	// Returns a comprehensive credit report including credit history, accounts, and inquiries.
@@ -51,7 +50,7 @@ func NewCreditBureauAdapterServiceClient(cc grpc.ClientConnInterface) CreditBure
 	return &creditBureauAdapterServiceClient{cc}
 }
 
-func (c *creditBureauAdapterServiceClient) GetBureaus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetBureausResponse, error) {
+func (c *creditBureauAdapterServiceClient) GetBureaus(ctx context.Context, in *GetBureausRequest, opts ...grpc.CallOption) (*GetBureausResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetBureausResponse)
 	err := c.cc.Invoke(ctx, CreditBureauAdapterService_GetBureaus_FullMethodName, in, out, cOpts...)
@@ -88,7 +87,7 @@ type CreditBureauAdapterServiceServer interface {
 	// Retrieves a list of supported credit bureaus.
 	// No parameters required.
 	// Returns a list of credit bureaus with their IDs and names.
-	GetBureaus(context.Context, *emptypb.Empty) (*GetBureausResponse, error)
+	GetBureaus(context.Context, *GetBureausRequest) (*GetBureausResponse, error)
 	// Retrieves a detailed credit report for an individual.
 	// Requires personal identification details.
 	// Returns a comprehensive credit report including credit history, accounts, and inquiries.
@@ -107,7 +106,7 @@ type CreditBureauAdapterServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCreditBureauAdapterServiceServer struct{}
 
-func (UnimplementedCreditBureauAdapterServiceServer) GetBureaus(context.Context, *emptypb.Empty) (*GetBureausResponse, error) {
+func (UnimplementedCreditBureauAdapterServiceServer) GetBureaus(context.Context, *GetBureausRequest) (*GetBureausResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBureaus not implemented")
 }
 func (UnimplementedCreditBureauAdapterServiceServer) GetCreditReport(context.Context, *GetCreditReportRequest) (*GetCreditReportResponse, error) {
@@ -139,7 +138,7 @@ func RegisterCreditBureauAdapterServiceServer(s grpc.ServiceRegistrar, srv Credi
 }
 
 func _CreditBureauAdapterService_GetBureaus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetBureausRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -151,7 +150,7 @@ func _CreditBureauAdapterService_GetBureaus_Handler(srv interface{}, ctx context
 		FullMethod: CreditBureauAdapterService_GetBureaus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CreditBureauAdapterServiceServer).GetBureaus(ctx, req.(*emptypb.Empty))
+		return srv.(CreditBureauAdapterServiceServer).GetBureaus(ctx, req.(*GetBureausRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
