@@ -14,3 +14,6 @@ type CreditBureauAdapter interface {
 
 // Ensure EquifaxAdapter implements the CreditBureauAdapter interface.
 var _ CreditBureauAdapter = (*adapter.EquifaxAdapter)(nil)
+
+// Ensure TransUnionAdapter implements the CreditBureauAdapter interface.
+var _ CreditBureauAdapter = (*adapter.TransUnionAdapter)(nil)

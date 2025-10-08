@@ -8,12 +8,18 @@ import (
 )
 
 type Config struct {
-	HTTP    ServerConfig  `yaml:"http"`
-	GRPC    ServerConfig  `yaml:"grpc"`
-	Equifax EquifaxConfig `yaml:"equifax"`
+	HTTP       ServerConfig     `yaml:"http"`
+	GRPC       ServerConfig     `yaml:"grpc"`
+	Equifax    EquifaxConfig    `yaml:"equifax"`
+	TransUnion TransUnionConfig `yaml:"transunion"`
 }
 
 type EquifaxConfig struct {
+	APIKey  string `yaml:"api_key"`
+	BaseURL string `yaml:"base_url"`
+}
+
+type TransUnionConfig struct {
 	APIKey  string `yaml:"api_key"`
 	BaseURL string `yaml:"base_url"`
 }

@@ -14,23 +14,26 @@ import (
 
 type ServiceParams struct {
 	fx.In
-	Logger           *zap.Logger
-	CreditBureauRepo repository.CreditBureauRepository
-	EquifaxAdapter   *adapter.EquifaxAdapter
+	Logger            *zap.Logger
+	CreditBureauRepo  repository.CreditBureauRepository
+	EquifaxAdapter    *adapter.EquifaxAdapter
+	TransUnionAdapter *adapter.TransUnionAdapter
 }
 
 type server struct {
 	cba.UnimplementedCreditBureauAdapterServiceServer
-	logger           *zap.Logger
-	creditBureauRepo repository.CreditBureauRepository
-	equifaxAdapter   *adapter.EquifaxAdapter
+	logger            *zap.Logger
+	creditBureauRepo  repository.CreditBureauRepository
+	equifaxAdapter    *adapter.EquifaxAdapter
+	transUnionAdapter *adapter.TransUnionAdapter
 }
 
 func NewServer(lc fx.Lifecycle, params ServiceParams) cba.CreditBureauAdapterServiceServer {
 	return &server{
-		logger:           params.Logger,
-		creditBureauRepo: params.CreditBureauRepo,
-		equifaxAdapter:   params.EquifaxAdapter,
+		logger:            params.Logger,
+		creditBureauRepo:  params.CreditBureauRepo,
+		equifaxAdapter:    params.EquifaxAdapter,
+		transUnionAdapter: params.TransUnionAdapter,
 	}
 }
 
