@@ -15,7 +15,8 @@ var (
 	// internal/database 2001-2999
 
 	// internal/repository 3001-3999
-	ErrCreditRepoListBureausFailed = status.Errorf(codes.Code(3001), "failed to list credit bureaus")
+	ErrCreditRepoListBureausFailed     = status.Errorf(codes.Code(3001), "failed to list credit bureaus")
+	ErrCreditRepoGetBureauByNameFailed = status.Errorf(codes.Code(3002), "failed to get credit bureau by name")
 
 	// internal/server 4001-4999
 )
