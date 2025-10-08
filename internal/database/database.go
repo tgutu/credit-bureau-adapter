@@ -51,7 +51,7 @@ func NewDatabase(lc fx.Lifecycle, params DatabaseParams) (*gorm.DB, error) {
 		OnStart: func(ctx context.Context) error {
 			params.Logger.Info("Connected to the database")
 
-			if err := db.AutoMigrate(&CreditBureau{}); err != nil {
+			if err := migrateModels(ctx, db); err != nil {
 				return fmt.Errorf("failed to migrate database: %w", err)
 			}
 			return nil
@@ -63,4 +63,26 @@ func NewDatabase(lc fx.Lifecycle, params DatabaseParams) (*gorm.DB, error) {
 	})
 
 	return db, nil
+}
+
+func migrateModels(ctx context.Context, db *gorm.DB) error {
+	if err := db.AutoMigrate(&CreditBureau{}); err != nil {
+		return fmt.Errorf("failed to migrate database: %w", err)
+	}
+
+	// Seed initial data
+	err := gorm.G[CreditBureau](db).Create(ctx, &CreditBureau{Name: "equifax"})
+	if err != nil {
+		return fmt.Errorf("failed to create equifax bureau: %w", err)
+	}
+
+	if err := gorm.G[CreditBureau](db).Create(ctx, &CreditBureau{Name: "experian"}); err != nil {
+		return fmt.Errorf("failed to create experian bureau: %w", err)
+	}
+
+	if err := gorm.G[CreditBureau](db).Create(ctx, &CreditBureau{Name: "transunion"}); err != nil {
+		return fmt.Errorf("failed to create transunion bureau: %w", err)
+	}
+
+	return nil
 }

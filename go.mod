@@ -5,6 +5,7 @@ go 1.25.1
 require (
 	github.com/google/gnostic v0.7.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
+	github.com/matoous/go-nanoid/v2 v2.1.0
 	go.uber.org/fx v1.24.0
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20251006185510-65f7160b3a87

@@ -23,8 +23,9 @@ It abstracts away bureau-specific integrations, formats, and authentication sche
            ▼
 ┌─────────────────────────────┐
 │ Credit Bureau Adapter API   │
+│  GET  /v1/credit/bureaus    │
 │  POST /v1/credit/report     │
-│  GET /v1/credit/bureaus     │
+│  POST /v1/credit/score      │
 └──────────┬──────────────────┘
            │
            ▼
