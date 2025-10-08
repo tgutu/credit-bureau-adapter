@@ -10,14 +10,14 @@ import (
 // packages or functions.
 var (
 	// internal/cba 1001-1999
-	ErrCbaCreditBureausNotFound = status.Errorf(codes.Code(1001), "no credit bureaus found")
-	ErrCbaUnsupportedBureau     = status.Errorf(codes.Code(1002), "unsupported credit bureau")
+	ErrCbaCreditBureausNotFound = status.Errorf(codes.InvalidArgument, "E1001: no credit bureaus found")
+	ErrCbaUnsupportedBureau     = status.Errorf(codes.InvalidArgument, "E1002: unsupported credit bureau")
 
 	// internal/database 2001-2999
 
 	// internal/repository 3001-3999
-	ErrCreditRepoListBureausFailed     = status.Errorf(codes.Code(3001), "failed to list credit bureaus")
-	ErrCreditRepoGetBureauByNameFailed = status.Errorf(codes.Code(3002), "failed to get credit bureau by name")
+	ErrCreditRepoListBureausFailed     = status.Errorf(codes.Internal, "E3001: failed to list credit bureaus")
+	ErrCreditRepoGetBureauByNameFailed = status.Errorf(codes.InvalidArgument, "E3002: failed to get credit bureau by name")
 
 	// internal/server 4001-4999
 )

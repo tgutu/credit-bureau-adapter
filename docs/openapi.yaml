@@ -3,10 +3,11 @@
 
 openapi: 3.0.3
 info:
-    title: CreditBureauAdapterService API
-    version: 0.0.1
+    title: Credit Bureau Adapter API
+    version: 1.0.0
 servers:
     - url: http://localhost:8080
+      description: Local development server
 paths:
     /v1/credit/bureaus:
         get:
