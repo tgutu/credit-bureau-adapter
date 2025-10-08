@@ -11,6 +11,9 @@ option go_package = "cba/cba;cba";
 
 service CreditBureauAdapterService {
 
+    // This gets converted to https://localhost:8080 in the OpenAPI spec
+    // when generating the spec using buf so update accordingly.
+    // For local development and testing, we use http://localhost:8080 
     option (google.api.default_host) = "http://localhost:8080";
 
     // Retrieves a list of supported credit bureaus.
