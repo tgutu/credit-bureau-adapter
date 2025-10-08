@@ -5,10 +5,13 @@ package cba.v1;
 import "gnostic/openapi/v3/annotations.proto";
 
 import "google/api/annotations.proto";
+import "google/api/client.proto";
 
 option go_package = "cba/cba;cba";
 
 service CreditBureauAdapterService {
+
+    option (google.api.default_host) = "http://localhost:8080";
 
     // Retrieves a list of supported credit bureaus.
     // No parameters required.

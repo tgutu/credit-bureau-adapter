@@ -687,7 +687,7 @@ var File_cba_v1_credit_bureau_adapter_proto protoreflect.FileDescriptor
 
 const file_cba_v1_credit_bureau_adapter_proto_rawDesc = "" +
 	"\n" +
-	"\"cba/v1/credit_bureau_adapter.proto\x12\x06cba.v1\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1cgoogle/api/annotations.proto\"\x13\n" +
+	"\"cba/v1/credit_bureau_adapter.proto\x12\x06cba.v1\x1a$gnostic/openapi/v3/annotations.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x17google/api/client.proto\"\x13\n" +
 	"\x11GetBureausRequest\">\n" +
 	"\x12GetBureausResponse\x12(\n" +
 	"\abureaus\x18\x01 \x03(\v2\x0e.cba.v1.BureauR\abureaus\"\xba\x01\n" +
@@ -746,13 +746,13 @@ const file_cba_v1_credit_bureau_adapter_proto_rawDesc = "" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1d\n" +
 	"\n" +
 	"date_filed\x18\x03 \x01(\tR\tdateFiled\x12\x16\n" +
-	"\x06status\x18\x04 \x01(\tR\x06status2\x94\x03\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status2\xae\x03\n" +
 	"\x1aCreditBureauAdapterService\x12n\n" +
 	"\n" +
 	"GetBureaus\x12\x19.cba.v1.GetBureausRequest\x1a\x1a.cba.v1.GetBureausResponse\")\xbaG\f*\n" +
 	"GetBureaus\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/credit/bureaus\x12\x84\x01\n" +
 	"\x0fGetCreditReport\x12\x1e.cba.v1.GetCreditReportRequest\x1a\x1f.cba.v1.GetCreditReportResponse\"0\xbaG\x11*\x0fGetCreditReport\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/credit/report\x12\x7f\n" +
-	"\x0eGetCreditScore\x12\x1d.cba.v1.GetCreditScoreRequest\x1a\x1e.cba.v1.GetCreditScoreResponse\".\xbaG\x10*\x0eGetCreditScore\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/credit/scoreBl\n" +
+	"\x0eGetCreditScore\x12\x1d.cba.v1.GetCreditScoreRequest\x1a\x1e.cba.v1.GetCreditScoreResponse\".\xbaG\x10*\x0eGetCreditScore\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/credit/score\x1a\x18\xcaA\x15http://localhost:8080Bl\n" +
 	"\n" +
 	"com.cba.v1B\x18CreditBureauAdapterProtoP\x01Z\vcba/cba;cba\xa2\x02\x03CXX\xaa\x02\x06Cba.V1\xca\x02\x06Cba\\V1\xe2\x02\x12Cba\\V1\\GPBMetadata\xea\x02\aCba::V1b\x06proto3"
 

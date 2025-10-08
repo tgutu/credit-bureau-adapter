@@ -55,3 +55,59 @@ func (s *server) GetBureaus(ctx context.Context, in *cba.GetBureausRequest) (*cb
 
 	return &cba.GetBureausResponse{Bureaus: pbBureaus}, nil
 }
+
+func (s *server) GetCreditReport(ctx context.Context, in *cba.GetCreditReportRequest) (*cba.GetCreditReportResponse, error) {
+	bureau, err := s.creditBureauRepo.GetBureauByName(ctx, in.BureauName)
+	if err != nil {
+		s.logger.Error("failed to get bureau by name", zap.String("name", in.BureauName), zap.Error(err))
+		return nil, apicode.ErrCreditRepoGetBureauByNameFailed
+	}
+
+	adapter, err := s.getAdapterByName(bureau.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	report, err := adapter.GetCreditReport(ctx, in)
+	if err != nil {
+		s.logger.Error("failed to get credit report", zap.String("bureau", in.BureauName), zap.Error(err))
+		return nil, err
+	}
+
+	return &report, nil
+}
+
+func (s *server) GetCreditScore(ctx context.Context, in *cba.GetCreditScoreRequest) (*cba.GetCreditScoreResponse, error) {
+	bureau, err := s.creditBureauRepo.GetBureauByName(ctx, in.BureauName)
+	if err != nil {
+		s.logger.Error("failed to get bureau by name", zap.String("name", in.BureauName), zap.Error(err))
+		return nil, apicode.ErrCreditRepoGetBureauByNameFailed
+	}
+
+	adapter, err := s.getAdapterByName(bureau.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	report, err := adapter.GetCreditScore(ctx, in)
+	if err != nil {
+		s.logger.Error("failed to get credit score", zap.String("bureau", in.BureauName), zap.Error(err))
+		return nil, err
+	}
+
+	return &report, nil
+}
+
+func (s *server) getAdapterByName(name string) (CreditBureauAdapter, error) {
+	switch name {
+	case "experian":
+		return s.experianAdapter, nil
+	case "equifax":
+		return s.equifaxAdapter, nil
+	case "transunion":
+		return s.transUnionAdapter, nil
+	default:
+		s.logger.Error("unsupported bureau", zap.String("name", name))
+		return nil, apicode.ErrCbaUnsupportedBureau
+	}
+}

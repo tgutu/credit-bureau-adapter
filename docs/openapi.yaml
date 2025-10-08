@@ -5,6 +5,8 @@ openapi: 3.0.3
 info:
     title: CreditBureauAdapterService API
     version: 0.0.1
+servers:
+    - url: http://localhost:8080
 paths:
     /v1/credit/bureaus:
         get:

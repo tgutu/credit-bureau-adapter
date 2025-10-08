@@ -53,9 +53,8 @@
 - **Postman:**
   Import the OpenAPI spec inside the `docs/` folder into Postman.
   Configure `baseUrl` variable to `http://localhost:8080` in collection variables.
-  List credit bureaus:
   ```sh
-  curl --location 'http://localhost:8080/v1/credit/bureaus'
+  curl --location 'http://localhost:8080/v1/credit/bureaus' # List credit bureaus
   ```
 
 - **Integration Tests:**  

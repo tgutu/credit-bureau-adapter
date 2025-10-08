@@ -11,6 +11,7 @@ import (
 var (
 	// internal/cba 1001-1999
 	ErrCbaCreditBureausNotFound = status.Errorf(codes.Code(1001), "no credit bureaus found")
+	ErrCbaUnsupportedBureau     = status.Errorf(codes.Code(1002), "unsupported credit bureau")
 
 	// internal/database 2001-2999
 
