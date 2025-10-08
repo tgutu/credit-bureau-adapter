@@ -8,7 +8,6 @@ import (
 	"github.com/tgutu/credit-bureau-adapter/internal/cba/adapter"
 	"github.com/tgutu/credit-bureau-adapter/internal/config"
 	"github.com/tgutu/credit-bureau-adapter/internal/database"
-	"github.com/tgutu/credit-bureau-adapter/internal/repository"
 	"github.com/tgutu/credit-bureau-adapter/internal/server"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
@@ -25,7 +24,13 @@ func main() {
 		panic(err)
 	}
 
-	fx.New(
+	app := createApp(configFile)
+
+	app.Run()
+}
+
+func createApp(configFile *config.Config) *fx.App {
+	return fx.New(
 		fx.Invoke(
 			func(*grpc.Server) {},
 			func(*http.Server) {},
@@ -39,7 +44,7 @@ func main() {
 			adapter.NewEquifaxAdapter,
 			adapter.NewTransUnionAdapter,
 			database.NewDatabase,
-			repository.NewCreditBureauRepository,
+			database.NewCreditBureauRepository,
 			server.NewGrpcServer,
 			server.NewHTTPServer,
 			zap.NewProduction,
@@ -47,5 +52,5 @@ func main() {
 		fx.WithLogger(func(log *zap.Logger) fxevent.Logger {
 			return &fxevent.ZapLogger{Logger: log}
 		}),
-	).Run()
+	)
 }

@@ -5,7 +5,7 @@ import (
 
 	"github.com/tgutu/credit-bureau-adapter/internal/apicode"
 	"github.com/tgutu/credit-bureau-adapter/internal/cba/adapter"
-	"github.com/tgutu/credit-bureau-adapter/internal/repository"
+	"github.com/tgutu/credit-bureau-adapter/internal/database"
 	"github.com/tgutu/credit-bureau-adapter/pkg/pb/cba/v1"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
@@ -14,7 +14,7 @@ import (
 type ServiceParams struct {
 	fx.In
 	Logger            *zap.Logger
-	CreditBureauRepo  repository.CreditBureauRepository
+	CreditBureauRepo  database.CreditBureauRepository
 	ExperianAdapter   *adapter.ExperianAdapter
 	EquifaxAdapter    *adapter.EquifaxAdapter
 	TransUnionAdapter *adapter.TransUnionAdapter
@@ -23,7 +23,7 @@ type ServiceParams struct {
 type server struct {
 	cba.UnimplementedCreditBureauAdapterServiceServer
 	logger            *zap.Logger
-	creditBureauRepo  repository.CreditBureauRepository
+	creditBureauRepo  database.CreditBureauRepository
 	experianAdapter   *adapter.ExperianAdapter
 	equifaxAdapter    *adapter.EquifaxAdapter
 	transUnionAdapter *adapter.TransUnionAdapter

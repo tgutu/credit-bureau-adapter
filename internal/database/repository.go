@@ -1,18 +1,17 @@
-package repository
+package database
 
 import (
 	"context"
 
 	"github.com/tgutu/credit-bureau-adapter/internal/apicode"
-	"github.com/tgutu/credit-bureau-adapter/internal/database"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
 type CreditBureauRepository interface {
-	GetBureauByName(ctx context.Context, name string) (*database.CreditBureau, error)
-	ListBureaus(ctx context.Context) ([]database.CreditBureau, error)
+	GetBureauByName(ctx context.Context, name string) (*CreditBureau, error)
+	ListBureaus(ctx context.Context) ([]CreditBureau, error)
 }
 
 type CreditBureauRepositoryParams struct {
@@ -33,8 +32,8 @@ func NewCreditBureauRepository(params CreditBureauRepositoryParams) CreditBureau
 	}
 }
 
-func (r *creditBureauRepository) ListBureaus(ctx context.Context) ([]database.CreditBureau, error) {
-	bureaus, err := gorm.G[database.CreditBureau](r.db).Find(ctx)
+func (r *creditBureauRepository) ListBureaus(ctx context.Context) ([]CreditBureau, error) {
+	bureaus, err := gorm.G[CreditBureau](r.db).Find(ctx)
 	if err != nil {
 		r.logger.Error("failed to list bureaus", zap.Error(err))
 		return nil, apicode.ErrCreditRepoListBureausFailed
@@ -42,8 +41,8 @@ func (r *creditBureauRepository) ListBureaus(ctx context.Context) ([]database.Cr
 	return bureaus, nil
 }
 
-func (r *creditBureauRepository) GetBureauByName(ctx context.Context, name string) (*database.CreditBureau, error) {
-	bureau, err := gorm.G[database.CreditBureau](r.db).Where("name = ?", name).First(ctx)
+func (r *creditBureauRepository) GetBureauByName(ctx context.Context, name string) (*CreditBureau, error) {
+	bureau, err := gorm.G[CreditBureau](r.db).Where("name = ?", name).First(ctx)
 	if err != nil {
 		r.logger.Error("failed to get bureau by name", zap.String("name", name), zap.Error(err))
 		return nil, apicode.ErrCreditRepoGetBureauByNameFailed
