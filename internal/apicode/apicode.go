@@ -10,7 +10,7 @@ import (
 // packages or functions.
 var (
 	// internal/cba 1001-1999
-	ErrAuthMetadataMissing = status.Errorf(codes.Code(1001), "missing metadata")
+	ErrCbaCreditBureausNotFound = status.Errorf(codes.Code(1001), "no credit bureaus found")
 
 	// internal/database 2001-2999
 

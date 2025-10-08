@@ -35,6 +35,7 @@ func main() {
 		}),
 		fx.Provide(
 			cba.NewServer,
+			adapter.NewExperianAdapter,
 			adapter.NewEquifaxAdapter,
 			adapter.NewTransUnionAdapter,
 			database.NewDatabase,
