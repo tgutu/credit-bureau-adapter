@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  credit-bureau-adapter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: credit-bureau-adapter
+    ports:
+      - "9090:9090"
+      - "8080:8080"

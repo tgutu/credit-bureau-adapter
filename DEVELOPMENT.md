@@ -25,6 +25,11 @@
     brew install golangci-lint
     ```
 
+4. **Run the service in Docker**
+    ```sh
+    docker compose up
+    ```
+
 ---
 
 ## Development Workflow
