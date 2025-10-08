@@ -1,0 +1,19 @@
+http:
+  host: "localhost"
+  port: 8080
+
+grpc:
+  host: "localhost"
+  port: 9090
+
+equifax:
+  api_key: "your_equifax_api_key"
+  base_url: "https://api.equifax.com"
+
+experian:
+  api_key: "your_experian_api_key"
+  base_url: "https://api.experian.com"
+
+transunion:
+  api_key: "your_transunion_api_key"
+  base_url: "https://api.transunion.com"  
