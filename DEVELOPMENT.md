@@ -1,8 +1,7 @@
 ## Prerequisites
 
-- Go >= 1.20
-- Docker (optional, for containerized development)
-- Access to credit bureau API credentials
+- Go >= 1.25 (If compiling on machine and not in Docker)
+- Docker
 
 ---
 
@@ -14,20 +13,20 @@
     cd credit-bureau-adapter
     ```
 
-2. **Install dependencies:**
+2. **Run the service in Docker**
+    ```sh
+    docker compose up
+    ```
+
+3. **Install dependencies:**
     ```sh
     go mod tidy
     ```
 
-3. **Install build tools**
+4. **Install build tools**
     ```sh
     brew install buf
     brew install golangci-lint
-    ```
-
-4. **Run the service in Docker**
-    ```sh
-    docker compose up
     ```
 
 ---
